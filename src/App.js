@@ -4,6 +4,9 @@ import Productos from './pages/Productos';
 import Nosotros from './pages/Nosotros';
 import Blogs from './pages/Blogs';
 import Contacto from './pages/Contacto';
+import IniciarSesion from './pages/IniciarSesion';
+import RegistrarSesion from './pages/RegistrarSesion';
+import HomeAdmin from './pages/admin/HomeAdmin';
 
 function App() {
   return (
@@ -13,7 +16,10 @@ function App() {
         <Route path="/productos" element={<Productos />}/>
         <Route path="/nosotros" element={<Nosotros />}/>
         <Route path="/blogs" element={<Blogs />}/>
-        <Route path="/contacto" element={<Contacto />}/>     
+        <Route path="/contacto" element={<Contacto />}/>   
+        <Route path="/iniciar-sesion" element={<IniciarSesion />}/>  
+        <Route path="/registrar-sesion" element={<RegistrarSesion />}/>
+        <Route path="/admin" element={<HomeAdmin />}/>
         {/* Aquí agregarás las otras rutas después */}
       </Routes>
     </Router>
