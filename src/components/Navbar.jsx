@@ -27,6 +27,26 @@ function Navbar() {
               <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/categorias">Categorias</Link>
+            </li>
+            <li className="nav-item dropdown">
+              <a 
+                className="nav-link dropdown-toggle" 
+                href="#" 
+                id="navbarDropdown" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false"
+              >
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><Link className="dropdown-item" to="/categorias/frutas">Frutas</Link></li>
+                <li><Link className="dropdown-item" to="/categorias/verduras">Verduras</Link></li>
+                <li><Link className="dropdown-item" to="/categorias/organicos">Orgánicos</Link></li>
+              </ul>
+            </li>
+            
+            <li className="nav-item">
               <Link className="nav-link" to="/productos">Productos</Link>
             </li>
             <li className="nav-item">
@@ -38,6 +58,11 @@ function Navbar() {
             <li className="nav-item">
               <Link className="nav-link" to="/contacto">Contacto</Link>
             </li>
+            
+            <li className="nav-item">
+              <Link className="nav-link" to="/ofertas">Ofertas</Link>
+            </li>
+
           </ul>
 
           <div className="d-flex align-items-center">

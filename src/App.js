@@ -7,6 +7,8 @@ import Contacto from './pages/Contacto';
 import IniciarSesion from './pages/IniciarSesion';
 import RegistrarSesion from './pages/RegistrarSesion';
 import HomeAdmin from './pages/admin/HomeAdmin';
+import DetalleNaranja from './pages/detalleProducto/DetalleNaranja';
+import Categorias from './pages/Categorias';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/iniciar-sesion" element={<IniciarSesion />}/>  
         <Route path="/registrar-sesion" element={<RegistrarSesion />}/>
         <Route path="/admin" element={<HomeAdmin />}/>
+        <Route path="/productos/naranja" element={<DetalleNaranja />}/>
+        <Route path="/categorias" element={<Categorias />}/>
         {/* Aquí agregarás las otras rutas después */}
       </Routes>
     </Router>
