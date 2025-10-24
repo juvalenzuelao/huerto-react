@@ -1,59 +1,78 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../app/AuthProvider';
 import '../../styles/estilo.css';
+import '../../styles/admin.css';
 
 function HomeAdmin() {
-    return (
+  const { logout } = useAuth();
+  const nav = useNavigate();
+
+  const salir = (e) => {
+    e.preventDefault();
+    logout();      // borra token en localStorage
+    nav('/');      // o '/iniciar-sesion' si prefieres volver al login
+  };
+
+  return (
     <div className="layout">
-        <aside className="sidebar">
+      <aside className="sidebar">
         <div className="sidebar-brand">
-            <img className="brand-logo" src="/img/LogoHuerto.png" alt="HuertoHogar" />
+          <img className="brand-logo" src="/img/LogoHuerto.png" alt="HuertoHogar" />
         </div>
 
         <nav className="sidebar-nav">
-            <Link to="/admin" className="sidebar-link active" aria-current="page">
-            <i className="bi bi-speedometer2"></i>
-            <span>Inicio</span>
-            </Link>
-            <Link to="/admin/usuarios" className="sidebar-link">
+            <NavLink to="/admin" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
+                <i className="bi bi-speedometer2"></i>
+                <span>Inicio</span>
+            </NavLink>
+
+          <NavLink to="/admin/productos" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
+            <i className="bi bi-box-seam"></i>
+            <span>Productos</span>
+          </NavLink>
+
+          <NavLink to="/admin/usuarios" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
             <i className="bi bi-bag-check"></i>
             <span>Usuarios</span>
-            </Link>
-            <Link to="/admin/nuevo-usuario" className="sidebar-link">
+          </NavLink>
+
+          <Link to="/admin/nuevo-usuario" className="sidebar-link">
             <i className="bi bi-box-seam"></i>
             <span>Nuevo usuario</span>
-            </Link>
-            <Link to="/admin/editar-usuario" className="sidebar-link">
+          </Link>
+
+          <Link to="/admin/editar-usuario" className="sidebar-link">
             <i className="bi bi-pen"></i>
             <span>Editar usuario</span>
-            </Link>
+          </Link>
         </nav>
 
         <div className="sidebar-bottom">
-            <Link to="/" className="sidebar-link muted">
+          <Link to="/" className="sidebar-link muted">
             <i className="bi bi-bag"></i>
             <span>Ir a Tienda</span>
-            </Link>
-            <Link to="/" className="sidebar-link muted">
+          </Link>
+          <button type="button" className="sidebar-link muted" onClick={salir} style={{background:'none', border:'0', padding:0}}>
             <i className="bi bi-power"></i>
             <span>Salir</span>
-            </Link>
-            <div className="copyright small">© 2025</div>
+          </button>
+          <div className="copyright small">© 2025</div>
         </div>
-        </aside>
+      </aside>
 
-        <main className="content">
+      <main className="content">
         <div className="page-header d-flex align-items-center justify-content-between">
-            <h1 className="h5 m-0">¡Hola, Administrador!</h1>
-            <i className="bi bi-bell"></i>
+          <h1 className="h5 m-0">¡Hola, Administrador!</h1>
+          <i className="bi bi-bell"></i>
         </div>
 
         <section className="dashboard-area mt-3">
-            <div className="panel top"></div>
-            <div className="panel bottom"></div>
+          <div className="panel top"></div>
+          <div className="panel bottom"></div>
         </section>
-        </main>
+      </main>
     </div>
-    );
+  );
 }
 
 export default HomeAdmin;

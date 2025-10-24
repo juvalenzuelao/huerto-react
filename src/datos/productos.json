@@ -1,0 +1,4 @@
+[
+  {"id":"pruducto1","sku":"H001","nombre":"Sustrato Premium","categoria":"Suelo","precio":5990,"stock":8,"img":"/img/sustrato.jpg","descripcion":"Mezcla aireada para raíces sanas."},
+  {"id":"pruducto2","sku":"H002","nombre":"Macetero 15cm","categoria":"Contenedores","precio":3490,"stock":3,"img":"/img/macetero15.jpg","descripcion":"Macetero plástico reciclado 15cm."}
+]

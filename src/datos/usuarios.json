@@ -1,0 +1,4 @@
+[
+  {"id":"user1","nombre":"Admin","email":"admin@huertohogar.cl","rol":"admin"},
+  {"id":"user2","nombre":"Juan","email":"juan@huertohogar.cl","rol":"editor"}
+]
