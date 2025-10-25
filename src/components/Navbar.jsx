@@ -96,7 +96,7 @@ function Navbar() {
           <div className="d-flex align-items-center">
             <Link to="/carrito" className="text-dark text-decoration-none">
               <i className="fa-solid fa-cart-shopping"></i>
-              <span className="ms-2">Prod(0)</span>
+              <span className="ms-2">(0)</span>
             </Link>
           </div>
         </div>
