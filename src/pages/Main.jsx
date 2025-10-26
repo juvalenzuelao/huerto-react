@@ -24,12 +24,12 @@ function Main() {
           <div className="col-md-6 infoTienda">
             <h2>Tienda Online</h2>
             <p>
-              En Huerto Hogar, te ofrecemos todo lo que necesitas para crear y mantener tu propio huerto en casa. 
-              Desde semillas orgánicas hasta herramientas de jardinería, tenemos todo lo que necesitas para cultivar 
+              En Huerto Hogar, te ofrecemos todo lo que necesitas para crear y mantener tu propio huerto en casa.
+              Desde semillas orgánicas hasta herramientas de jardinería, tenemos todo lo que necesitas para cultivar
               tus propias frutas y verduras frescas.
             </p>
             <p>
-              Nuestro compromiso es brindarte productos de alta calidad y asesoramiento experto para que tu experiencia 
+              Nuestro compromiso es brindarte productos de alta calidad y asesoramiento experto para que tu experiencia
               de jardinería sea exitosa y gratificante.
             </p>
             <Link to="/productos" className="btn btn-primary">Ver Productos</Link>

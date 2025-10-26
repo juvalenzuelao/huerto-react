@@ -9,7 +9,6 @@ function IniciarSesion() {
   const location = useLocation();
   const { login } = useAuth();
 
-  // lee el parámetro next (?next=/admin)
   const params = new URLSearchParams(location.search);
   const nextParam = params.get('next');
 

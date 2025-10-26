@@ -11,6 +11,10 @@ import IniciarSesion from './pages/IniciarSesion';
 import RegistrarSesion from './pages/RegistrarSesion';
 import Categorias from './pages/Categorias';
 import DetalleNaranja from './pages/detalleProducto/DetalleNaranja';
+import Carrito from './pages/Carrito';
+import DetalleCompra from './pages/DetalleCompra';
+import CompraExitosa from './pages/CompraExitosa';
+import CompraCancelada from './pages/CompraCancelada';
 
 // Páginas admin
 import HomeAdmin from './pages/admin/HomeAdmin';
@@ -34,6 +38,10 @@ export default function App() {
       <Route path="/contacto" element={<Contacto />} />
       <Route path="/categorias" element={<Categorias />} />
       <Route path="/productos/naranja" element={<DetalleNaranja />} />
+      <Route path="/carrito" element={<Carrito />} />
+      <Route path="/detallecompra" element={<DetalleCompra />} />
+      <Route path="/compraexitosa" element={<CompraExitosa/>} />
+      <Route path="/compracancelada" element={<CompraCancelada />} />
 
       {/* Auth */}
       <Route path="/iniciar-sesion" element={<IniciarSesion />} />
