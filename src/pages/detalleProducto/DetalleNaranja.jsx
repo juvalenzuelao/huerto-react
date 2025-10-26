@@ -11,7 +11,6 @@ function DetalleNaranja() {
     alert(`Agregado: ${cantidad} naranjas`);
   };
 
-  // URL de compartir dinámica (no queda fija a localhost)
   const base = typeof window !== 'undefined' ? window.location.origin : '';
   const shareUrl = `${base}/productos/naranja`;
 
@@ -101,7 +100,7 @@ function DetalleNaranja() {
                 <small className="text-muted">Hace 1 semana</small>
               </div>
 
-              {/* Comentario 3 */}
+
               <div className="comentario">
                 <div className="comentario-header">
                   <strong>Carla Torres</strong>
@@ -195,7 +194,7 @@ function DetalleNaranja() {
         </div>
       </div>
 
-      {/* Productos relacionados */}
+
       <div className="container mb-5">
         <h3 className="text-center mb-4 text-success">Productos relacionados</h3>
         <div className="row">

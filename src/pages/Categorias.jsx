@@ -33,52 +33,51 @@ function Categorias() {
 
     return (
         <>
-        <Navbar />
+            <Navbar />
 
-        <div className="container mt-4 text-center">
-            <h1 className="titulo-productos">Categorías de Productos</h1>
+            <div className="container mt-4 text-center">
+                <h1 className="titulo-productos">Categorías de Productos</h1>
 
-            <div className="d-flex justify-content-center gap-3 mt-4 mb-5">
-                {categorias.map((nombre) => (
-                    <div
-                    key={nombre}
-                    className={`card p-2 ${
-                        categoria === nombre ? "border-primary" : ""
-                    }`}
-                    style={{ width: "150px", cursor: "pointer" }}
-                    onClick={() => setCategoria(nombre)}
-                    >
-                    <img
-                        src={imagenCategoria[nombre]}
-                        alt={nombre}
-                        style={{ width: "100%", height: "100px", objectFit: "cover" }}
-                    />
-                    <p className="mt-2 fw-bold">{nombre}</p>
-                    </div>
-                ))}
-            </div>
-
-            <h3 className="mb-4">{categoria}</h3>
-            <div className="row justify-content-center">
-                {productos[categoria].map((prod) => (
-                    <div key={prod.nombre} className="col-lg-3 col-md-6 col-sm-6 mb-4">
-                    <div className="card">
-                        <img
-                        src={prod.img}
-                        alt={prod.nombre}
-                        className="card-img-top"
-                        style={{ height: "200px", objectFit: "cover" }}
-                        />
-                        <div className="card-body">
-                        <h5 className="card-title text-start">{prod.nombre}</h5>
+                <div className="d-flex justify-content-center gap-3 mt-4 mb-5">
+                    {categorias.map((nombre) => (
+                        <div
+                            key={nombre}
+                            className={`card p-2 ${categoria === nombre ? "border-primary" : ""
+                                }`}
+                            style={{ width: "150px", cursor: "pointer" }}
+                            onClick={() => setCategoria(nombre)}
+                        >
+                            <img
+                                src={imagenCategoria[nombre]}
+                                alt={nombre}
+                                style={{ width: "100%", height: "100px", objectFit: "cover" }}
+                            />
+                            <p className="mt-2 fw-bold">{nombre}</p>
                         </div>
-                    </div>
-                    </div>
-                ))}
-            </div>
-        </div>
+                    ))}
+                </div>
 
-        <Footer />
+                <h3 className="mb-4">{categoria}</h3>
+                <div className="row justify-content-center">
+                    {productos[categoria].map((prod) => (
+                        <div key={prod.nombre} className="col-lg-3 col-md-6 col-sm-6 mb-4">
+                            <div className="card">
+                                <img
+                                    src={prod.img}
+                                    alt={prod.nombre}
+                                    className="card-img-top"
+                                    style={{ height: "200px", objectFit: "cover" }}
+                                />
+                                <div className="card-body">
+                                    <h5 className="card-title text-start">{prod.nombre}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <Footer />
         </>
     );
 }

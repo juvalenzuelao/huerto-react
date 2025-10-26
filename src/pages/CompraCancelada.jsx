@@ -18,12 +18,12 @@ function CompraCancelada() {
 
           <div className="text-center mb-4">
             <Link to="/DetalleCompra">
-                <button className="btn btn-success px-4">VOLVER A REALIZAR EL PAGO</button>
+              <button className="btn btn-success px-4">VOLVER A REALIZAR EL PAGO</button>
             </Link>
-            
+
           </div>
 
-          {/* Resto igual al componente exitoso */}
+
           <div className="table-responsive">
             <table className="table align-middle">
               <thead className="table-light">
@@ -37,32 +37,32 @@ function CompraCancelada() {
               </thead>
               <tbody>
                 <tr>
-                    <td><img src="/img/NaranjaValencia.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
-                    <td>Naranja Valencia</td>
-                    <td>$1.000</td>
-                    <td>1</td>
-                    <td>$1.000</td>
+                  <td><img src="/img/NaranjaValencia.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
+                  <td>Naranja Valencia</td>
+                  <td>$1.000</td>
+                  <td>1</td>
+                  <td>$1.000</td>
                 </tr>
                 <tr>
-                    <td><img src="/img/PimientosTricolores.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
-                    <td>Pimientos tricolores</td>
-                    <td>$1.500</td>
-                    <td>2</td>
-                    <td>$3.000</td>
+                  <td><img src="/img/PimientosTricolores.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
+                  <td>Pimientos tricolores</td>
+                  <td>$1.500</td>
+                  <td>2</td>
+                  <td>$3.000</td>
                 </tr>
                 <tr>
-                    <td><img src="/img/ZanahoriasOrganicas.png" className="bg-light rounded tabla" alt="Naranja" /></td>
-                    <td>Zanahorias orgánicas</td>
-                    <td>$900</td>
-                    <td>1</td>
-                    <td>$900</td>
+                  <td><img src="/img/ZanahoriasOrganicas.png" className="bg-light rounded tabla" alt="Naranja" /></td>
+                  <td>Zanahorias orgánicas</td>
+                  <td>$900</td>
+                  <td>1</td>
+                  <td>$900</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div className="d-flex justify-content-between align-items-center mt-3">
-            <h5>Total pagado: <span className="text-success">$4.900</span></h5>
+            <h5>Total: <span className="text-success">$4.900</span></h5>
           </div>
         </div>
       </div>

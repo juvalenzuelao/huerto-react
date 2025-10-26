@@ -63,7 +63,7 @@ function CompraExitosa() {
             </div>
           </form>
 
-          {/* Tabla */}
+
           <div className="table-responsive">
             <table className="table align-middle">
               <thead className="table-light">
@@ -77,25 +77,25 @@ function CompraExitosa() {
               </thead>
               <tbody>
                 <tr>
-                    <td><img src="/img/NaranjaValencia.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
-                    <td>Naranja Valencia</td>
-                    <td>$1.000</td>
-                    <td>1</td>
-                    <td>$1.000</td>
+                  <td><img src="/img/NaranjaValencia.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
+                  <td>Naranja Valencia</td>
+                  <td>$1.000</td>
+                  <td>1</td>
+                  <td>$1.000</td>
                 </tr>
                 <tr>
-                    <td><img src="/img/PimientosTricolores.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
-                    <td>Pimientos tricolores</td>
-                    <td>$1.500</td>
-                    <td>2</td>
-                    <td>$3.000</td>
+                  <td><img src="/img/PimientosTricolores.jpg" className="bg-light rounded tabla" alt="Naranja" /></td>
+                  <td>Pimientos tricolores</td>
+                  <td>$1.500</td>
+                  <td>2</td>
+                  <td>$3.000</td>
                 </tr>
                 <tr>
-                    <td><img src="/img/ZanahoriasOrganicas.png" className="bg-light rounded tabla" alt="Naranja" /></td>
-                    <td>Zanahorias orgánicas</td>
-                    <td>$900</td>
-                    <td>1</td>
-                    <td>$900</td>
+                  <td><img src="/img/ZanahoriasOrganicas.png" className="bg-light rounded tabla" alt="Naranja" /></td>
+                  <td>Zanahorias orgánicas</td>
+                  <td>$900</td>
+                  <td>1</td>
+                  <td>$900</td>
                 </tr>
               </tbody>
             </table>
