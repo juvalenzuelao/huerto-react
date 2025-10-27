@@ -14,6 +14,21 @@ function Productos() {
                         <h1 className="titulo-productos">Productos Huerto Hogar</h1>
                     </div>
 
+                    <div className="search-container mb-4">
+                            <div className="input-group w-50 mx-auto">
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Buscar productos..." 
+                                    aria-label="Buscar productos"
+                                />
+                                <span className="input-group-text">
+                                    <i className="fas fa-search"></i>
+                                </span>
+                            </div>
+                    </div>
+
+
                     <div className="col-lg-3 col-md-6 col-sm-6 mb-4">
                         <Link to="/productos/naranja">
                             <div className="card">

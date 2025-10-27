@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../app/AuthProvider';
+import '../styles/navbar.css';
 
 function Navbar() {
   const { isAuth } = useAuth();
@@ -35,65 +36,61 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto menu">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/">Home</NavLink>
+              <NavLink className="nav-link" to="/">
+                Home
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/productos">
+                Productos
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/nosotros">
+                Nosotros
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/blogs">
+                Blogs
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/contacto">
+                Contacto
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/categorias">Categorías</NavLink>
-            </li>
-
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                onClick={(e) => e.preventDefault()}
-              >
-                Categorías
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <NavLink className="dropdown-item" to="/categorias/frutas">Frutas</NavLink>
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" to="/categorias/verduras">Verduras</NavLink>
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" to="/categorias/organicos">Orgánicos</NavLink>
-                </li>
-              </ul>
+              <NavLink className="nav-link" to="/ofertas">
+                Ofertas
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/productos">Productos</NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/nosotros">Nosotros</NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/blogs">Blogs</NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/contacto">Contacto</NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/ofertas">Ofertas</NavLink>
-            </li>
-
-            {/* 👉 Link al panel admin visible siempre */}
-            <li className="nav-item">
-              <NavLink className="nav-link" to={adminHref}>Admin</NavLink>
+              <NavLink className="nav-link" to={adminHref}>
+                Admin
+              </NavLink>
             </li>
           </ul>
 
           <div className="d-flex align-items-center">
+            {/* Search bar */}
+            <div className="search-nav me-4">
+              <div className="input-group">
+                <input 
+                  type="text" 
+                  className="form-control form-control-sm" 
+                  placeholder="Buscar..." 
+                  aria-label="Buscar"
+                />
+                <span className="input-group-text">
+                  <i className="fas fa-search"></i>
+                </span>
+              </div>
+            </div>
+
+            {/* Cart icon */}
             <Link to="/carrito" className="text-dark text-decoration-none">
               <i className="fa-solid fa-cart-shopping"></i>
               <span className="ms-2">(0)</span>

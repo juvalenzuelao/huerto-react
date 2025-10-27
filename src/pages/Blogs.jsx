@@ -37,7 +37,7 @@ function Blogs() {
               Los Plátanos Cavendish han mostrado un crecimiento excepcional del <strong>40% más</strong> que los métodos tradicionales,
               mientras consumen un 60% menos de agua...
             </p>
-            <Link to="/blogs/caso-platano" className="btn btn-primary">
+            <Link to="/casos/CasoPlatano" className="btn btn-primary">
               <i className="fa-solid fa-arrow-right me-2"></i>Ver Caso Completo
             </Link>
           </div>
@@ -67,7 +67,7 @@ function Blogs() {
               el uso del agua en un <strong>30%</strong>. Esta tecnología sostenible monitorea humedad, temperatura y nutrientes en
               tiempo real, garantizando productos más frescos y menor impacto ambiental...
             </p>
-            <Link to="/blogs/caso-sensores" className="btn btn-primary">
+            <Link to="/casos/CasoSensores" className="btn btn-primary">
               <i className="fa-solid fa-arrow-right me-2"></i>Ver Caso Completo
             </Link>
           </div>

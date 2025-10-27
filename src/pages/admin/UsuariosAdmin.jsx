@@ -1,127 +1,202 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import AdminMarco from '../../components/AdminMarco';
-import { listarUsuarios, guardarUsuario, eliminarUsuario } from '../../servicios/UsuariosServicio';
+import { useState } from 'react';
+import AdminSideBar from '../../components/adminSideBar';
 import '../../styles/estilo.css';
 
-export default function UsuariosAdmin() {
-  const [filas, setFilas] = useState([]);
-  const [editando, setEditando] = useState(null); // id o null
-  const [q, setQ] = useState('');
-  const [form, setForm] = useState({ nombre: '', email: '', rol: 'editor' });
+function UsuariosAdmin() {
+  const [usuarios, setUsuarios] = useState([
+    { id: 1, nombre: 'Juan Pérez', correo: 'juan@example.com', rol: 'Administrador' },
+    { id: 2, nombre: 'María López', correo: 'maria@example.com', rol: 'Cliente' },
+    { id: 3, nombre: 'Carlos Díaz', correo: 'carlos@example.com', rol: 'Cliente' },
+  ]);
 
-  const { pathname } = useLocation();
+  const [usuarioEditado, setUsuarioEditado] = useState(null);
+  const [modoEdicion, setModoEdicion] = useState(false);
+  const [historialUsuario, setHistorialUsuario] = useState(null);
 
-  const cargar = async () => setFilas(await listarUsuarios());
-  useEffect(() => { cargar(); }, []);
+  const comprasEjemplo = [
+    { id: '#001', fecha: '2024-02-15', total: '$25.000', estado: 'Completada' },
+    { id: '#002', fecha: '2024-02-14', total: '$18.500', estado: 'En proceso' },
+    { id: '#003', fecha: '2024-02-14', total: '$12.000', estado: 'Pendiente' },
+  ];
 
-  // Si entras a /admin/nuevo-usuario, abre el form vacío en modo crear
-  useEffect(() => {
-    if (pathname.endsWith('/nuevo-usuario')) {
-      setForm({ nombre: '', email: '', rol: 'editor' });
-      setEditando(null);
-    }
-  }, [pathname]);
-
-  const filtradas = filas.filter(r =>
-    [r.nombre, r.email, r.rol].join(' ').toLowerCase().includes(q.toLowerCase())
-  );
-
-  const nuevo = () => {
-    setForm({ nombre: '', email: '', rol: 'editor' });
-    setEditando(null);
+  const handleEditar = (usuario) => {
+    setUsuarioEditado(usuario);
+    setModoEdicion(true);
+    setHistorialUsuario(null);
   };
 
-  const editar = (u) => {
-    setForm({ nombre: u.nombre ?? '', email: u.email ?? '', rol: u.rol ?? 'editor' });
-    setEditando(u.id);
+  const handleVerCompras = (usuario) => {
+    setHistorialUsuario({ ...usuario, compras: comprasEjemplo });
+    setUsuarioEditado(null);
+    setModoEdicion(false);
   };
 
-  const guardar = async (e) => {
-    e.preventDefault();
-    await guardarUsuario(editando ? { ...form, id: editando } : form);
-    nuevo();
-    cargar();
+  const handleNuevoUsuario = () => {
+    setUsuarioEditado({ id: '', nombre: '', correo: '', rol: '' });
+    setModoEdicion(false);
+    setHistorialUsuario(null);
   };
 
-  const eliminar = async (id) => {
-    if (window.confirm('¿Eliminar este usuario?')) {
-      await eliminarUsuario(id);
-      cargar();
-    }
+  const handleCancelar = () => {
+    setUsuarioEditado(null);
+    setModoEdicion(false);
+    setHistorialUsuario(null);
   };
 
   return (
-    <AdminMarco titulo="Usuarios">
-      <h2 className="mb-2">Usuarios</h2>
+    <div className="layout">
+      <AdminSideBar />
 
-      <div className="toolbar" style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-        <input
-          placeholder="Buscar (nombre, email, rol)"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
-        <button onClick={nuevo}>Nuevo</button>
-      </div>
-
-      <div className="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Nombre</th><th>Email</th><th>Rol</th><th></th>
-            </tr>
-          </thead>
-        <tbody>
-          {filtradas.map((r) => (
-            <tr key={r.id}>
-              <td>{r.nombre}</td>
-              <td>{r.email}</td>
-              <td>{r.rol}</td>
-              <td className="actions" style={{ display: 'flex', gap: 6 }}>
-                <button onClick={() => editar(r)}>Editar</button>
-                <button className="danger" onClick={() => eliminar(r.id)}>Eliminar</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        </table>
-        {filtradas.length === 0 && <p className="muted">Sin datos…</p>}
-      </div>
-
-      <form onSubmit={guardar} className="card" style={{ marginTop: 12 }}>
-        <h3 className="mb-2">{editando ? 'Editar usuario' : 'Nuevo usuario'}</h3>
-        <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          <label>Nombre
-            <input
-              value={form.nombre}
-              onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-              required
-            />
-          </label>
-          <label>Email
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-            />
-          </label>
-          <label className="col-2" style={{ gridColumn: 'span 2' }}>Rol
-            <select
-              value={form.rol}
-              onChange={(e) => setForm({ ...form, rol: e.target.value })}
-            >
-              <option value="admin">admin</option>
-              <option value="editor">editor</option>
-              <option value="viewer">viewer</option>
-            </select>
-          </label>
+      <main className="content">
+        <div className="page-header d-flex align-items-center justify-content-between">
+          <h1 className="h5 m-0">Gestión de Usuarios</h1>
+          <i className="bi bi-bell"></i>
         </div>
-        <div className="actions" style={{ marginTop: 8, display: 'flex', gap: 8 }}>
-          <button type="submit">Guardar</button>
-          {editando && <button type="button" onClick={nuevo}>Cancelar</button>}
-        </div>
-      </form>
-    </AdminMarco>
+
+        <section className="mt-3">
+          <h2 className="mb-3">Lista de Usuarios</h2>
+
+          {/* Botón nuevo usuario */}
+          <button className="btn btn-success mb-3" onClick={handleNuevoUsuario}>
+            <i className="bi bi-person-plus me-2"></i>Nuevo Usuario
+          </button>
+
+          {/* Tabla de usuarios */}
+          <table className="table table-striped">
+            <thead className="table-success">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {usuarios.map((u) => (
+                <tr key={u.id}>
+                  <td>{u.id}</td>
+                  <td>{u.nombre}</td>
+                  <td>{u.correo}</td>
+                  <td>{u.rol}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-primary me-2"
+                      onClick={() => handleEditar(u)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="btn btn-sm btn-info me-2"
+                      onClick={() => handleVerCompras(u)}
+                    >
+                      Compras
+                    </button>
+                    <button className="btn btn-sm btn-danger">Eliminar</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Formulario de usuario */}
+          {usuarioEditado && (
+            <div className="card mt-4 p-3">
+              <h3 className="mb-3">
+                {modoEdicion ? 'Editar Usuario' : 'Nuevo Usuario'}
+              </h3>
+              <form>
+                <div className="row">
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={usuarioEditado.nombre}
+                      onChange={(e) =>
+                        setUsuarioEditado({ ...usuarioEditado, nombre: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Correo</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      value={usuarioEditado.correo}
+                      onChange={(e) =>
+                        setUsuarioEditado({ ...usuarioEditado, correo: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Rol</label>
+                    <select
+                      className="form-select"
+                      value={usuarioEditado.rol}
+                      onChange={(e) =>
+                        setUsuarioEditado({ ...usuarioEditado, rol: e.target.value })
+                      }
+                    >
+                      <option value="">Seleccionar...</option>
+                      <option value="Administrador">Administrador</option>
+                      <option value="Cliente">Cliente</option>
+                    </select>
+                  </div>
+                </div>
+
+                <button type="submit" className="btn btn-success">
+                  Guardar
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary ms-2"
+                  onClick={handleCancelar}
+                >
+                  Cancelar
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* Historial de Compras */}
+          {historialUsuario && (
+            <div className="mt-5">
+              <h3>Historial de Compras de {historialUsuario.nombre}</h3>
+              <table className="table table-striped mt-3">
+                <thead className="table-success">
+                  <tr>
+                    <th>N° Orden</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {historialUsuario.compras.map((c) => (
+                    <tr key={c.id}>
+                      <td>{c.id}</td>
+                      <td>{c.fecha}</td>
+                      <td>{c.total}</td>
+                      <td>
+                        <span className={`badge ${
+                          c.estado === 'Completada' ? 'bg-success' :
+                          c.estado === 'En proceso' ? 'bg-warning' :
+                          'bg-secondary'
+                        }`}>
+                          {c.estado}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      </main>
+    </div>
   );
 }
+
+export default UsuariosAdmin;

@@ -1,150 +1,223 @@
-import { useEffect, useState } from 'react';
-import AdminMarco from '../../components/AdminMarco';
-import { listarProductos, guardarProducto, eliminarProducto } from '../../servicios/ProductosServicio';
+import { useState } from 'react';
+import AdminSideBar from '../../components/adminSideBar';
 import '../../styles/estilo.css';
 
-export default function ProductosAdmin() {
-  const [filas, setFilas] = useState([]);
-  const [editando, setEditando] = useState(null); // id o null
-  const [q, setQ] = useState('');
-  const [form, setForm] = useState({
-    sku: '', nombre: '', categoria: '', precio: 0, stock: 0, img: '', descripcion: ''
-  });
+function ProductosAdmin() {
+  const [productos, setProductos] = useState([
+    { sku: 'FR001', nombre: 'Manzana Fuji', categoria: 'Frutas', precio: 1200, stock: 50, descripcion: 'Manzanas frescas' },
+    { sku: 'FR002', nombre: 'Naranja Valencia', categoria: 'Frutas', precio: 1000, stock: 10, descripcion: 'Naranjas jugosas' },
+    { sku: 'VR001', nombre: 'Zanahorias', categoria: 'Verduras', precio: 900, stock: 5, descripcion: 'Zanahorias crujientes' },
+  ]);
 
-  const cargar = async () => setFilas(await listarProductos());
-  useEffect(() => { cargar(); }, []);
+  const [productoEditado, setProductoEditado] = useState(null);
+  const [modoEdicion, setModoEdicion] = useState(false);
 
-  const filtradas = filas.filter(r =>
-    [r.nombre, r.sku, r.categoria].join(' ').toLowerCase().includes(q.toLowerCase())
-  );
+  const productosMasVendidos = [
+    { sku: 'FR002', nombre: 'Naranja Valencia', ventas: 120 },
+    { sku: 'VR001', nombre: 'Zanahorias', ventas: 95 },
+  ];
 
-  const nuevo = () => {
-    setForm({ sku: '', nombre: '', categoria: '', precio: 0, stock: 0, img: '', descripcion: '' });
-    setEditando(null);
+  const productosCriticos = productos.filter(p => p.stock < 20);
+
+  const handleEditar = (producto) => {
+    setProductoEditado(producto);
+    setModoEdicion(true);
   };
 
-  const editar = (p) => {
-    setForm({
-      sku: p.sku ?? '',
-      nombre: p.nombre ?? '',
-      categoria: p.categoria ?? '',
-      precio: Number(p.precio) || 0,
-      stock: Number(p.stock) || 0,
-      img: p.img ?? '',
-      descripcion: p.descripcion ?? '',
+  const handleNuevoProducto = () => {
+    setProductoEditado({
+      sku: '',
+      nombre: '',
+      categoria: '',
+      precio: '',
+      stock: '',
+      descripcion: '',
     });
-    setEditando(p.id);
+    setModoEdicion(false);
   };
 
-  const guardar = async (e) => {
+  const handleCancelar = () => {
+    setProductoEditado(null);
+    setModoEdicion(false);
+  };
+
+  const handleGuardar = (e) => {
     e.preventDefault();
-    await guardarProducto(editando ? { ...form, id: editando } : form);
-    nuevo();
-    cargar();
-  };
-
-  const eliminar = async (id) => {
-    if (window.confirm('¿Eliminar este producto?')) {
-      await eliminarProducto(id);
-      cargar();
+    if (!modoEdicion) {
+      setProductos([...productos, productoEditado]);
     }
+    setProductoEditado(null);
   };
 
   return (
-    <AdminMarco titulo="Productos">
-      <h2 className="mb-2">Productos</h2>
+    <div className="layout">
+      <AdminSideBar />
 
-      <div className="toolbar" style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
-        <input
-          placeholder="Buscar (nombre, SKU, categoría)"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
-        <button onClick={nuevo}>Nuevo</button>
-      </div>
-
-      <div className="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>SKU</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtradas.map((r) => (
-              <tr key={r.id}>
-                <td>{r.sku}</td>
-                <td>{r.nombre}</td>
-                <td>{r.categoria}</td>
-                <td>${r.precio}</td>
-                <td>{r.stock}</td>
-                <td className="actions" style={{ display: 'flex', gap: 6 }}>
-                  <button onClick={() => editar(r)}>Editar</button>
-                  <button className="danger" onClick={() => eliminar(r.id)}>Eliminar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {filtradas.length === 0 && <p className="muted">Sin datos…</p>}
-      </div>
-
-      <form onSubmit={guardar} className="card" style={{ marginTop: 12 }}>
-        <h3 className="mb-2">{editando ? 'Editar producto' : 'Nuevo producto'}</h3>
-        <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-          <label>SKU
-            <input
-              value={form.sku}
-              onChange={(e) => setForm({ ...form, sku: e.target.value })}
-              required
-            />
-          </label>
-          <label>Nombre
-            <input
-              value={form.nombre}
-              onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-              required
-            />
-          </label>
-          <label>Categoría
-            <input
-              value={form.categoria}
-              onChange={(e) => setForm({ ...form, categoria: e.target.value })}
-            />
-          </label>
-          <label>Precio
-            <input
-              type="number"
-              value={form.precio}
-              onChange={(e) => setForm({ ...form, precio: Number(e.target.value) })}
-            />
-          </label>
-          <label>Stock
-            <input
-              type="number"
-              value={form.stock}
-              onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })}
-            />
-          </label>
-          <label className="col-2" style={{ gridColumn: 'span 2' }}>Imagen URL
-            <input
-              value={form.img}
-              onChange={(e) => setForm({ ...form, img: e.target.value })}
-            />
-          </label>
-          <label className="col-2" style={{ gridColumn: 'span 2' }}>Descripción
-            <textarea
-              rows={3}
-              value={form.descripcion}
-              onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-            />
-          </label>
+      <main className="content">
+        <div className="page-header d-flex align-items-center justify-content-between">
+          <h1 className="h5 m-0">Gestión de Productos</h1>
+          <i className="bi bi-bell"></i>
         </div>
-        <div className="actions" style={{ marginTop: 8, display: 'flex', gap: 8 }}>
-          <button type="submit">Guardar</button>
-          {editando && <button type="button" onClick={nuevo}>Cancelar</button>}
-        </div>
-      </form>
-    </AdminMarco>
+
+        <section className="mt-3">
+
+          {/* Lista de Productos */}
+          <div className="card-section mb-4">
+            <h2 className="mb-3">Lista de Productos</h2>
+            <button className="btn btn-success mb-3" onClick={handleNuevoProducto}>
+              <i className="bi bi-plus-circle me-2"></i>Nuevo Producto
+            </button>
+            <table className="table table-striped">
+              <thead className="table-success">
+                <tr>
+                  <th>SKU</th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productos.map((p) => (
+                  <tr key={p.sku}>
+                    <td>{p.sku}</td>
+                    <td>{p.nombre}</td>
+                    <td>{p.categoria}</td>
+                    <td>${p.precio}</td>
+                    <td>{p.stock}</td>
+                    <td>
+                      <button className="btn btn-sm btn-primary me-2" onClick={() => handleEditar(p)}>Editar</button>
+                      <button className="btn btn-sm btn-danger">Eliminar</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Formulario Nuevo/Editar Producto */}
+          {productoEditado && (
+            <div className="card-section mb-4">
+              <h3>{modoEdicion ? 'Editar Producto' : 'Nuevo Producto'}</h3>
+              <form onSubmit={handleGuardar}>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">SKU</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={productoEditado.sku}
+                      onChange={(e) => setProductoEditado({ ...productoEditado, sku: e.target.value })}
+                      readOnly={modoEdicion}
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Nombre</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={productoEditado.nombre}
+                      onChange={(e) => setProductoEditado({ ...productoEditado, nombre: e.target.value })}
+                    />
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Categoría</label>
+                    <select
+                      className="form-select"
+                      value={productoEditado.categoria}
+                      onChange={(e) => setProductoEditado({ ...productoEditado, categoria: e.target.value })}
+                    >
+                      <option value="">Seleccionar...</option>
+                      <option value="Frutas">Frutas</option>
+                      <option value="Verduras">Verduras</option>
+                      <option value="Orgánicos">Orgánicos</option>
+                    </select>
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Precio</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={productoEditado.precio}
+                      onChange={(e) => setProductoEditado({ ...productoEditado, precio: e.target.value })}
+                    />
+                  </div>
+                  <div className="col-md-4 mb-3">
+                    <label className="form-label">Stock</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={productoEditado.stock}
+                      onChange={(e) => setProductoEditado({ ...productoEditado, stock: e.target.value })}
+                    />
+                  </div>
+                  <div className="col-12 mb-3">
+                    <label className="form-label">Descripción</label>
+                    <textarea
+                      className="form-control"
+                      rows="3"
+                      value={productoEditado.descripcion}
+                      onChange={(e) => setProductoEditado({ ...productoEditado, descripcion: e.target.value })}
+                    ></textarea>
+                  </div>
+                </div>
+                <button type="submit" className="btn btn-success">Guardar</button>
+                <button type="button" className="btn btn-secondary ms-2" onClick={handleCancelar}>Cancelar</button>
+              </form>
+            </div>
+          )}
+
+          {/* Productos Críticos */}
+          <div className="card-section mb-4">
+            <h3>Productos Críticos (Stock Bajo)</h3>
+            <table className="table table-striped mt-3">
+              <thead className="table-danger">
+                <tr>
+                  <th>SKU</th>
+                  <th>Nombre</th>
+                  <th>Stock</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productosCriticos.map(p => (
+                  <tr key={p.sku}>
+                    <td>{p.sku}</td>
+                    <td>{p.nombre}</td>
+                    <td>{p.stock}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Productos Más Vendidos */}
+          <div className="card-section mb-4">
+            <h3>Productos Más Vendidos</h3>
+            <table className="table table-striped mt-3">
+              <thead className="table-success">
+                <tr>
+                  <th>SKU</th>
+                  <th>Nombre</th>
+                  <th>Ventas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productosMasVendidos.map(p => (
+                  <tr key={p.sku}>
+                    <td>{p.sku}</td>
+                    <td>{p.nombre}</td>
+                    <td>{p.ventas}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+      </main>
+    </div>
   );
 }
+
+export default ProductosAdmin;

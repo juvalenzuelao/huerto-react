@@ -1,0 +1,63 @@
+.perfil-icono {
+    font-size: 120px;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.perfil-dashboard {
+    display: flex;
+}
+
+.perfil-content {
+    flex-grow: 1;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.perfil-container {
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+.perfil-campos {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+}
+
+.perfil-campo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.perfil-campo input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.perfil-boton {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.perfil-boton:hover {
+    background-color: #45a049;
+}

@@ -11,15 +11,24 @@ import IniciarSesion from './pages/IniciarSesion';
 import RegistrarSesion from './pages/RegistrarSesion';
 import Categorias from './pages/Categorias';
 import DetalleNaranja from './pages/detalleProducto/DetalleNaranja';
+import Ofertas from './pages/Ofertas';
+// Compra
 import Carrito from './pages/Carrito';
 import DetalleCompra from './pages/DetalleCompra';
 import CompraExitosa from './pages/CompraExitosa';
 import CompraCancelada from './pages/CompraCancelada';
+//Blogs
+import CasoPlatano from './pages/casos/CasoPlatano';
+import CasoSensores from './pages/casos/CasoSensores';
 
 // Páginas admin
 import HomeAdmin from './pages/admin/HomeAdmin';
-import AdminProductos from './pages/admin/AdminProductos';
-import AdminUsuarios from './pages/admin/AdminUsuarios';
+import ProductosAdmin from './pages/admin/ProductosAdmin';
+import Ordenes from './pages/admin/Ordenes';
+import UsuariosAdmin from './pages/admin/UsuariosAdmin';
+import Boleta001 from './pages/admin/boletas/boleta001';
+import CategoriasAdmin from './pages/admin/Categorias';
+import Perfil from './pages/admin/Perfil';
 
 // Guard de ruta privada
 function RutaPrivada({ children }) {
@@ -37,23 +46,29 @@ export default function App() {
       <Route path="/blogs" element={<Blogs />} />
       <Route path="/contacto" element={<Contacto />} />
       <Route path="/categorias" element={<Categorias />} />
+      <Route path="/ofertas" element={<Ofertas />} />
       <Route path="/productos/naranja" element={<DetalleNaranja />} />
       <Route path="/carrito" element={<Carrito />} />
       <Route path="/detallecompra" element={<DetalleCompra />} />
       <Route path="/compraexitosa" element={<CompraExitosa/>} />
       <Route path="/compracancelada" element={<CompraCancelada />} />
+      <Route path="/casos/CasoPlatano" element={<CasoPlatano />} />
+      <Route path="/casos/CasoSensores" element={<CasoSensores />} />
 
       {/* Auth */}
       <Route path="/iniciar-sesion" element={<IniciarSesion />} />
       <Route path="/registrar-sesion" element={<RegistrarSesion />} />
 
-      {/* Admin protegido */}
+      // Admin
       <Route path="/admin" element={<RutaPrivada><HomeAdmin /></RutaPrivada>} />
-      <Route path="/admin/productos" element={<RutaPrivada><AdminProductos /></RutaPrivada>} />
-      <Route path="/admin/usuarios" element={<RutaPrivada><AdminUsuarios /></RutaPrivada>} />
-      {/* Reusan la misma vista para no 404 en el menú */}
-      <Route path="/admin/nuevo-usuario" element={<RutaPrivada><AdminUsuarios /></RutaPrivada>} />
-      <Route path="/admin/editar-usuario" element={<RutaPrivada><AdminUsuarios /></RutaPrivada>} />
+      <Route path="/admin/productos" element={<RutaPrivada><ProductosAdmin /></RutaPrivada>} />
+      <Route path="/admin/usuarios" element={<RutaPrivada><UsuariosAdmin /></RutaPrivada>} />
+      <Route path="/admin/ordenes" element={<RutaPrivada><Ordenes /></RutaPrivada>} />
+      <Route path="/admin/boletas/boleta001" element={<RutaPrivada><Boleta001 /></RutaPrivada>} />
+      <Route path="/admin/categorias" element={<RutaPrivada><CategoriasAdmin /></RutaPrivada>} />
+      <Route path="/admin/perfil" element={<RutaPrivada><Perfil /></RutaPrivada>} />
+      
+      
 
       {/* Catch-all (al final) */}
       <Route path="*" element={<Navigate to="/" replace />} />

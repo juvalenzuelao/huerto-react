@@ -1,0 +1,138 @@
+/* Agregamos el namespace .caso-detalle para aislar los estilos */
+.caso-detalle {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.caso-detalle .blog-detail {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    margin: 30px 0;
+    padding: 40px; 
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-left: 5px solid #28a745;
+}
+
+.caso-detalle .article-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.caso-detalle .article-meta {
+    margin-bottom: 20px;
+    color: #6c757d;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.caso-detalle .blog-tag {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.caso-detalle .article-header h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 36px;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #28a745;
+    padding-bottom: 8px;
+}
+
+.caso-detalle .main-image {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin: 25px 0;
+    transition: transform 0.3s ease;
+}
+
+.caso-detalle .main-image:hover {
+    transform: scale(1.05);
+}
+
+.caso-detalle .article-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.caso-detalle .pros-cons-container {
+    display: flex;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.caso-detalle .pros,
+.caso-detalle .cons {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.caso-detalle .pros {
+    background-color: #f8f9fa;
+    border-left: 4px solid #28a745;
+}
+
+.caso-detalle .cons {
+    background-color: #fff5f5;
+    border-left: 4px solid #dc3545;
+}
+
+.caso-detalle .articulosRelacionados {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #e9ecef;
+}
+
+.caso-detalle .grilla {
+    display: flex;
+    gap: 20px;
+}
+
+.caso-detalle .tarjeta {
+    flex: 1;
+    background-color: white;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.caso-detalle .tarjeta img {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px 8px 0 0;
+    object-fit: cover;
+}
+
+.caso-detalle .leerMas {
+    display: inline-block;
+    margin: 10px;
+    padding: 8px 15px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .caso-detalle .pros-cons-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .caso-detalle .grilla {
+        flex-direction: column;
+    }
+}

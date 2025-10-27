@@ -1,0 +1,34 @@
+/* Search bar styles */
+.search-nav .input-group {
+    width: 200px;
+}
+
+.search-nav .input-group-text {
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+    padding: 0.25rem 0.5rem;
+}
+
+.search-nav .form-control {
+    border-right: none;
+}
+
+.search-nav .form-control:focus {
+    border-color: #28a745;
+    box-shadow: none;
+}
+
+.search-nav .input-group:focus-within .input-group-text {
+    border-color: #28a745;
+}
+
+@media (max-width: 992px) {
+    .search-nav {
+        margin: 1rem 0;
+    }
+    
+    .search-nav .input-group {
+        width: 100%;
+    }
+}

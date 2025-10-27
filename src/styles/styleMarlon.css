@@ -7,6 +7,14 @@ body {
     color: #333333;
 }
 
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    margin-top: 0;
+}
+
 .logo-Huerto {
     width: 150px;
     margin-top: 10px;
