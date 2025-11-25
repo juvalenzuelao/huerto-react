@@ -67,11 +67,6 @@ function Navbar() {
               </NavLink>
             </li>
 
-            <li className="nav-item">
-              <NavLink className="nav-link" to={adminHref}>
-                Admin
-              </NavLink>
-            </li>
           </ul>
 
           <div className="d-flex align-items-center">

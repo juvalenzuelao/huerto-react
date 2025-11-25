@@ -61,6 +61,7 @@ export default function App() {
 
       // Admin
       <Route path="/admin" element={<RutaPrivada><HomeAdmin /></RutaPrivada>} />
+      <Route path="/admin/home" element={<RutaPrivada><HomeAdmin /></RutaPrivada>} />
       <Route path="/admin/productos" element={<RutaPrivada><ProductosAdmin /></RutaPrivada>} />
       <Route path="/admin/usuarios" element={<RutaPrivada><UsuariosAdmin /></RutaPrivada>} />
       <Route path="/admin/ordenes" element={<RutaPrivada><Ordenes /></RutaPrivada>} />

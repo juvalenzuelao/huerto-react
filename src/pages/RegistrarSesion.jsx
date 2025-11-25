@@ -5,6 +5,8 @@ import '../styles/styleMarlon.css';
 
 function RegistrarSesion() {
     const navigate = useNavigate();
+    const [error, setError] = useState("");
+
     const [formData, setFormData] = useState({
         nombres: '',
         rut: '',
@@ -24,71 +26,81 @@ function RegistrarSesion() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        let valido = true;
+        setError("");
 
+        // Validaciones
         if (!formData.nombres || formData.nombres.trim() === "" || formData.nombres.length > 50) {
-            alert("El nombre es obligatorio y debe tener máximo 50 caracteres.");
-            valido = false;
-            return;
+            return setError("El nombre es obligatorio y máximo 50 caracteres.");
         }
 
         const rutRegex = /^[0-9]{7,8}-?[0-9Kk]{1}$/;
         if (!formData.rut || !rutRegex.test(formData.rut.trim())) {
-            alert("El RUT no es válido. Ejemplo: 19011022K");
-            valido = false;
-            return;
+            return setError("El RUT no es válido. Ejemplo: 19011022K");
         }
 
         if (!formData.apellidos || formData.apellidos.trim() === "" || formData.apellidos.length > 100) {
-            alert("Los apellidos son obligatorios y deben tener máximo 100 caracteres.");
-            valido = false;
-            return;
+            return setError("Los apellidos son obligatorios y máximo 100 caracteres.");
         }
 
         const correoRegex = /^[\w\.-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/;
-        if (!formData.correo || !correoRegex.test(formData.correo.trim()) || formData.correo.length > 100) {
-            alert("El correo debe terminar en @duoc.cl, @profesor.duoc.cl o @gmail.com y tener máximo 100 caracteres.");
-            valido = false;
-            return;
+        if (!formData.correo || !correoRegex.test(formData.correo.trim())) {
+            return setError("Correo debe ser @duoc.cl, @profesor.duoc.cl o @gmail.com");
         }
 
-        if (!formData.contrasenna || !formData.repetirContrasenna || formData.contrasenna.trim() === "" || formData.repetirContrasenna.trim() === "") {
-            alert("La contraseña es obligatoria.");
-            valido = false;
-            return;
+        if (!formData.contrasenna || !formData.repetirContrasenna) {
+            return setError("La contraseña es obligatoria.");
         }
 
         if (formData.contrasenna !== formData.repetirContrasenna) {
-            alert("Las contraseñas no coinciden.");
-            valido = false;
-            return;
+            return setError("Las contraseñas no coinciden.");
         }
 
-        if (!formData.direccion || formData.direccion.trim() === "" || formData.direccion.length > 300) {
-            alert("La dirección es obligatoria y debe tener máximo 300 caracteres.");
-            valido = false;
-            return;
+        if (!formData.direccion || formData.direccion.trim() === "") {
+            return setError("La dirección es obligatoria.");
         }
 
-        if (!formData.region || formData.region === "") {
-            alert("Debe seleccionar una región.");
-            valido = false;
-            return;
+        if (!formData.region) {
+            return setError("Selecciona una región.");
         }
 
-        if (!formData.comuna || formData.comuna === "") {
-            alert("Debe seleccionar una comuna.");
-            valido = false;
-            return;
+        if (!formData.comuna) {
+            return setError("Selecciona una comuna.");
         }
 
-        if (valido) {
-            alert("Formulario válido. Usuario registrado exitosamente.");
-            console.log('Datos del registro:', formData);
-            navigate('/iniciar-sesion');
+        // Crear objeto final que recibe el backend
+        const usuarioData = {
+            nombres: formData.nombres,
+            rut: formData.rut,
+            apellidos: formData.apellidos,
+            correo: formData.correo,
+            contrasenna: formData.contrasenna,
+            direccion: formData.direccion,
+            region: formData.region,
+            comuna: formData.comuna
+            // El rol lo asignará automáticamente el backend (USER)
+        };
+
+        try {
+            const response = await fetch("https://backendreact-kfg2.onrender.com/api/auth/registro", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(usuarioData)
+            });
+
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(errText);
+            }
+
+            alert("Usuario registrado correctamente.");
+            navigate("/iniciar-sesion");
+
+        } catch (err) {
+            setError(err.message || "Error al registrar usuario.");
         }
+
     };
 
     return (
@@ -98,6 +110,12 @@ function RegistrarSesion() {
             <div className="form-container divSesion">
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <img className="logo-Huerto divSesion" src="/img/LogoHuerto.png" alt="Logo" />
+
+                    {error && (
+                        <div className="col-12">
+                            <div className="alert alert-danger">{error}</div>
+                        </div>
+                    )}
 
                     <div className="col-12">
                         <label htmlFor="Nombres" className="form-label">Nombres</label>
