@@ -56,7 +56,7 @@ function IniciarSesionSimple() {
       if (data.rol === "ADMIN") {
         navigate("/admin");  
       } else {
-        navigate("/");            
+        navigate("/Carrito");            
       }
 
     } catch (err) {
